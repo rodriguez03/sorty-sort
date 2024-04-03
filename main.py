@@ -3,6 +3,8 @@
 import timeit
 import os
 from typing import List, Tuple, Dict
+import matplotlib.pyplot as plt
+from collections import defaultdict
 
 
 def read_files(directory: str) -> List[str]:
@@ -51,17 +53,69 @@ def doubling_experiment(
     return results
 
 
+def determine_complexity(doubling_ratio):
+    """Determine time complexity based on doubling ratio."""
+    if doubling_ratio > 7.9:  # exponential
+        return "Exponential"
+    elif doubling_ratio > 3.9: # cubic
+        return "Cubic"
+    elif doubling_ratio > 1.9: # quadratic 
+        return "Quadratic"
+    elif doubling_ratio > 1.2: # linearithmic
+        return "Linearithmic"
+    elif doubling_ratio > 0.9: # linear  
+        return "Linear"
+    elif doubling_ratio > 0.2: # logarithm
+        return "Logarithmic"
+    else: # constant
+        return "Constant" 
+
+
 def main() -> None:
     """Read in .py files from a directory, then benchmark them."""
     directory = input("Directory to benchmark: ")
     repetitions = int(input("Number of repetitions for doubling experiment: "))
     experiment_results = doubling_experiment(directory, repetitions)
-    print("Experiment Results:")
-    for repetitions, doubling_ratios in experiment_results:
-        print(f"\nRepetitions: {repetitions}")
-        for file, doubling_ratio in doubling_ratios.items():
-            print(f"\t{file}: Doubling Ratio - {doubling_ratio}")
 
+    # Initialize running totals and counts
+    totals = defaultdict(float)
+    counts = defaultdict(int)
+
+    # Calculate running totals and counts
+    for repetitions, doubling_ratios in experiment_results:
+        for file, doubling_ratio in doubling_ratios.items():
+            totals[file] += doubling_ratio
+            counts[file] += 1
+
+    # Calculate averages and determine complexities
+    result_times = []
+    for file in totals:
+        average_ratio = totals[file] / counts[file]
+        complexity = determine_complexity(average_ratio)
+        result_times.append((file, average_ratio, complexity))
+        print(f"{file}: Average Doubling Ratio ({average_ratio}): Runtime Complexity ({complexity})")
+
+    # Plotting the results
+    files, ratios, complexities = zip(*result_times)  # Unpacking the result_times list
+    bars = plt.bar(files, ratios)
+    plt.xlabel('File')
+    plt.ylabel('Average Doubling Ratio')
+    plt.title('Doubling Experiment Results')
+
+    # Increase the space on the y-axis
+    plt.ylim(0, max(ratios) * 1.2)  # Increase the y-limit to 120% of the maximum ratio
+
+    # Adding the complexity as a label on top of each bar
+    for bar, complexity in zip(bars, complexities):
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, complexity, ha='center', va='bottom')
+
+    plt.xticks(rotation=90)  # Rotating the x-axis labels for better visibility
+
+    # Increase the space at the bottom of the plot
+    plt.subplots_adjust(bottom=0.2)
+
+    plt.show()
 
 if __name__ == "__main__":
     main()
