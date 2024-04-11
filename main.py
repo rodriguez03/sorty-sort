@@ -7,7 +7,7 @@ import contextlib
 import resource
 from typing import Union
 import os
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 
 def memory_usage():
@@ -117,9 +117,8 @@ def main() -> None:
     )
     print(f"Average Doubling Ratio: {average_doubling_ratio}")
     print(f"Predicted Time Complexity: {determine_complexity(average_doubling_ratio)}")
-    print("")
-
     print(f"Memory Usage: {memory_usage():.2f} MB")
+    print("")
 
 
 if __name__ == "__main__":
