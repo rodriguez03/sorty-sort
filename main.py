@@ -81,7 +81,6 @@ def main() -> None:
     print("Welcome to your Algorithm Analysis Tool!")
     print("")
     # inputs
-    directory = input("File to benchmark: ")
     sorting_files = ["bubblesort.py", "mergesort.py", "quicksort.py", "timsort.py", "selectionsort.py"]
     directory = input("File to benchmark (e.g. bubblesort.py): ")
     if directory not in sorting_files:
