@@ -75,7 +75,7 @@ def main() -> None:
     print("Welcome to your Algorithm Analysis Tool!")
     print("")
     # inputs
-    sorting_files = ["bubblesort.py", "mergesort.py", "quicksort.py", "timsort.py"]
+    sorting_files = ["bubblesort.py", "mergesort.py", "quicksort.py", "timsort.py", "selectionsort.py"]
     directory = input("File to benchmark (e.g. bubblesort.py): ")
     if directory not in sorting_files:
         print("Error: File not recognized. Please enter a valid file name.")
