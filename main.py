@@ -1,121 +1,103 @@
 """Conduct a doubling experiment for benchmarking Python files."""
 
 import timeit
+import random
+import string
+import contextlib
+from typing import Union
 import os
 from typing import List, Tuple, Dict
-import matplotlib.pyplot as plt
-from collections import defaultdict
 
 
-def read_files(directory: str) -> List[str]:
-    """Reads all Python files in a directory and returns a list of file names."""
-    py_files = []
-    for file in os.listdir(directory):
-        if file.endswith(".py"):
-            py_files.append(os.path.join(directory, file))
-    return py_files
+def generate_data(data_type: str, size: int):
+    """Generate a list of data of the specified type and size."""
+    if data_type == 'int':
+        return [random.randint(0, 100) for _ in range(size)]
+    elif data_type == 'str':
+        return [''.join(random.choices(string.ascii_letters + string.digits, k=5)) for _ in range(size)]
+    else:
+        raise ValueError("Invalid data type. Expected 'int' or 'str'.") 
 
 
-def benchmark(files: List[str]) -> Dict[str, List[float]]:
-    """Benchmarks the execution time of each Python file in a list."""
-    results = {}
-    for file in files:
-        with open(file, "r") as f:
-            code = f.read()
-        # Timing the execution of the code
-        execution_time = timeit.timeit(code, number=1)
-        results[file] = [execution_time]
-    return results
+def benchmark(file: str, data: List) -> float:
+    """Benchmarks the execution time of a Python file."""
+    with open("sorting_algorithms/"+file, "r") as f:
+        code = compile(f.read(), file, 'exec')
+    # Timing the execution of the code
+    with open(os.devnull, 'w') as f, contextlib.redirect_stdout(f):
+        execution_time = timeit.timeit(lambda: exec(code, {'data': data}), number=1)
+    return execution_time
 
 
-def doubling_experiment(
-    directory: str, total_repetitions: int
-) -> List[Tuple[int, Dict[str, List[float]]]]:
+def doubling_experiment(file: str, data_type: str, start_size: int, total_repetitions: int) -> List[Tuple[int, float, Union[float, str]]]:
     """Conducts a doubling experiment for benchmarking."""
-    files = read_files(directory)
     results = []
     # Begin with a small number of repetitions
     repetitions = 1
-    prev_times = {}
-    while repetitions <= total_repetitions:
-        current_results = benchmark(files)
-        if prev_times:
-            doubling_ratios = {}
-            for file, current_time in current_results.items():
-                prev_time = prev_times[file][-1]
-                doubling_ratio = current_time[0] / prev_time
-                doubling_ratios[file] = doubling_ratio
-            results.append((repetitions, doubling_ratios))
-        else:
-            results.append((repetitions, {}))
-        prev_times = current_results
+    prev_time = 0
+    for _ in range(total_repetitions):
+        data = generate_data(data_type, start_size * repetitions)
+        current_time = benchmark(file, data)
+        doubling_ratio = 'N/A' if repetitions == 1 else current_time / prev_time
+        results.append((repetitions, current_time, doubling_ratio))
+        prev_time = current_time
         repetitions *= 2
     return results
 
 
-def determine_complexity(doubling_ratio):
+def determine_complexity(doubling_ratio: float) -> str:
     """Determine time complexity based on doubling ratio."""
-    if doubling_ratio > 7.9:  # exponential
+    if doubling_ratio > 7.8:  # exponential
         return "Exponential"
-    elif doubling_ratio > 3.9: # cubic
+    elif doubling_ratio > 3.8: # cubic
         return "Cubic"
-    elif doubling_ratio > 1.9: # quadratic 
+    elif doubling_ratio > 1.8: # quadratic 
         return "Quadratic"
     elif doubling_ratio > 1.2: # linearithmic
         return "Linearithmic"
-    elif doubling_ratio > 0.9: # linear  
+    elif doubling_ratio > 0.8: # linear  
         return "Linear"
     elif doubling_ratio > 0.2: # logarithm
         return "Logarithmic"
     else: # constant
-        return "Constant" 
+        return "Constant"
 
 
 def main() -> None:
     """Read in .py files from a directory, then benchmark them."""
+    # header
+    print("")
+    print("Welcome to your Algorithm Analysis Tool!")
+    print("")
+    # inputs
     directory = input("Directory to benchmark: ")
-    repetitions = int(input("Number of repetitions for doubling experiment: "))
-    experiment_results = doubling_experiment(directory, repetitions)
+    data_type = input("Type of data to use (int,str): ")
+    while True:
+        try:
+            start_size = int(input("Start size of list of data: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+    total_repetitions = 5
+    experiment_results = doubling_experiment(directory, data_type, start_size, total_repetitions)
+    # outputs
+    print("")
+    sum_doubling_ratios = 0
+    count_doubling_ratios = 0
+    for i, (repetitions, total_time, doubling_ratio) in enumerate(experiment_results, start=1):
+        if isinstance(doubling_ratio, str):
+            print(f"Run {i:2} of {total_repetitions} for {directory} operation with {data_type} list using size {start_size * repetitions:5} took {total_time:.10f} seconds and had a doubling ratio of {doubling_ratio:>12}")
+        else:
+            print(f"Run {i:2} of {total_repetitions} for {directory} operation with {data_type} list using size {start_size * repetitions:5} took {total_time:.10f} seconds and had a doubling ratio of {doubling_ratio:.10f}")
+            sum_doubling_ratios += doubling_ratio
+            count_doubling_ratios += 1
+    print("")
+    # predicted big O output
+    average_doubling_ratio = sum_doubling_ratios / count_doubling_ratios if count_doubling_ratios else 'N/A'
+    print(f"Average Doubling Ratio: {average_doubling_ratio}")
+    print(f"Predicted Time Complexity: {determine_complexity(average_doubling_ratio)}")
+    print("")
 
-    # Initialize running totals and counts
-    totals = defaultdict(float)
-    counts = defaultdict(int)
-
-    # Calculate running totals and counts
-    for repetitions, doubling_ratios in experiment_results:
-        for file, doubling_ratio in doubling_ratios.items():
-            totals[file] += doubling_ratio
-            counts[file] += 1
-
-    # Calculate averages and determine complexities
-    result_times = []
-    for file in totals:
-        average_ratio = totals[file] / counts[file]
-        complexity = determine_complexity(average_ratio)
-        result_times.append((file, average_ratio, complexity))
-        print(f"{file}: Average Doubling Ratio ({average_ratio}): Runtime Complexity ({complexity})")
-
-    # Plotting the results
-    files, ratios, complexities = zip(*result_times)  # Unpacking the result_times list
-    bars = plt.bar(files, ratios)
-    plt.xlabel('File')
-    plt.ylabel('Average Doubling Ratio')
-    plt.title('Doubling Experiment Results')
-
-    # Increase the space on the y-axis
-    plt.ylim(0, max(ratios) * 1.2)  # Increase the y-limit to 120% of the maximum ratio
-
-    # Adding the complexity as a label on top of each bar
-    for bar, complexity in zip(bars, complexities):
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 0.05, complexity, ha='center', va='bottom')
-
-    plt.xticks(rotation=90)  # Rotating the x-axis labels for better visibility
-
-    # Increase the space at the bottom of the plot
-    plt.subplots_adjust(bottom=0.2)
-
-    plt.show()
 
 if __name__ == "__main__":
     main()
