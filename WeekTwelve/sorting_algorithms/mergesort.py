@@ -1,12 +1,12 @@
-def merge_sort(arr):
+def mergesort(arr):
     if len(arr) > 1:
         mid = len(arr) // 2  # Finding the mid of the array
         L = arr[:mid]  # Dividing the array elements into 2 halves
         R = arr[mid:]
 
         # Recursive call on each half
-        merge_sort(L)  # Sorting the first half
-        merge_sort(R)  # Sorting the second half
+        mergesort(L)  # Sorting the first half
+        mergesort(R)  # Sorting the second half
 
         # Two iterators for traversing the two halves
         i = j = 0
