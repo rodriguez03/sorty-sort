@@ -45,12 +45,53 @@ The `_quicksort` function performs the recursive sorting process. It checks if t
 
 The `partition` function selects a random pivot element within the sublist and places it at the end. Then, it initializes two pointers, `i` and `j`, at the beginning and end of the sublist, respectively. The function then iterates through the sublist, swapping elements to ensure that all elements less than the pivot are on the left side and all elements greater than or equal to the pivot are on the right side. Finally, it places the pivot in its correct location within the sublist and returns its index.
 
-The quicksort algorithm is not the most efficient sorting algorithm we benchmarked, as its worst-case time complexity is *O(n)*.
+The quicksort algorithm is not the most efficient sorting algorithm we benchmarked, as its worst-case time complexity is *O(n^2)*.
+
+**Benchmark results for `quicksort` using integers:**
 
 ```
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array using standard bubble sort: [11, 12, 22, 25, 34, 64, 90]
+
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): quicksort.py
+Type of data to use (int,str): int
+Start size of list of data: 1000
+
+Run  1 of 5 for quicksort.py operation with int list using size  1000 took 0.0033570390 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for quicksort.py operation with int list using size  2000 took 0.0055074090 seconds and had a doubling ratio of 1.6405555601
+Run  3 of 5 for quicksort.py operation with int list using size  4000 took 0.0078437460 seconds and had a doubling ratio of 1.4242170877
+Run  4 of 5 for quicksort.py operation with int list using size  8000 took 0.0166555880 seconds and had a doubling ratio of 2.1234226595
+Run  5 of 5 for quicksort.py operation with int list using size 16000 took 0.0559699330 seconds and had a doubling ratio of 3.3604297249
+
+Average Doubling Ratio: 2.1371562580375514
+Predicted Time Complexity: Quadratic
+Memory Usage: 11.12 MB
 ```
 
-provide output
+**Benchmark results for `quicksort` using strings:**
+
+```
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array using standard bubble sort: [11, 12, 22, 25, 34, 64, 90]
+
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): quicksort.py
+Type of data to use (int,str): str
+Start size of list of data: 1000
+
+Run  1 of 5 for quicksort.py operation with str list using size  1000 took 0.0020752440 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for quicksort.py operation with str list using size  2000 took 0.0019696090 seconds and had a doubling ratio of 0.9490975548
+Run  3 of 5 for quicksort.py operation with str list using size  4000 took 0.0049886560 seconds and had a doubling ratio of 2.5328153941
+Run  4 of 5 for quicksort.py operation with str list using size  8000 took 0.0097829390 seconds and had a doubling ratio of 1.9610370003
+Run  5 of 5 for quicksort.py operation with str list using size 16000 took 0.0209633500 seconds and had a doubling ratio of 2.1428478708
+
+Average Doubling Ratio: 1.8964494549936606
+Predicted Time Complexity: Quadratic
+Memory Usage: 12.50 MB
+```
 
 #### Mergesort
 
