@@ -4,9 +4,15 @@ import timeit
 import random
 import string
 import contextlib
+import resource
 from typing import Union
 import os
 from typing import List, Tuple, Dict
+
+
+def memory_usage():
+    """Return the memory usage of the current process in MB."""
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024 
 
 
 def generate_data(data_type: str, size: int):
@@ -75,10 +81,7 @@ def main() -> None:
     print("Welcome to your Algorithm Analysis Tool!")
     print("")
     # inputs
-    sorting_files = ["bubblesort.py", "mergesort.py", "quicksort.py", "timsort.py", "selectionsort.py"]
-    directory = input("File to benchmark (e.g. bubblesort.py): ")
-    if directory not in sorting_files:
-        print("Error: File not recognized. Please enter a valid file name.")
+    directory = input("File to benchmark: ")
     data_type = input("Type of data to use (int,str): ")
     while True:
         try:
@@ -115,6 +118,8 @@ def main() -> None:
     print(f"Average Doubling Ratio: {average_doubling_ratio}")
     print(f"Predicted Time Complexity: {determine_complexity(average_doubling_ratio)}")
     print("")
+
+    print(f"Memory Usage: {memory_usage():.2f} MB")
 
 
 if __name__ == "__main__":
