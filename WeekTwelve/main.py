@@ -9,10 +9,12 @@ from typing import Union
 import os
 from typing import List, Tuple
 
+from sorting_algorithms import bubblesort, quicksort, timsort, mergesort
+
 
 def memory_usage():
     """Return the memory usage of the current process in MB."""
-    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024 
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
 
 
 def generate_data(data_type: str, size: int):
@@ -30,12 +32,15 @@ def generate_data(data_type: str, size: int):
 
 def benchmark(file: str, data: List) -> float:
     """Benchmarks the execution time of a Python file."""
-    with open("sorting_algorithms/" + file, "r") as f:
-        code = compile(f.read(), file, "exec")
-    # Timing the execution of the code
-    with open(os.devnull, "w") as f, contextlib.redirect_stdout(f):
-        execution_time = timeit.timeit(lambda: exec(code, {"data": data}), number=1)
-    return execution_time
+    module = __import__("sorting_algorithms")
+    sorting_function = getattr(module, file.split(".")[0])
+    algorithm = getattr(sorting_function, file.split(".")[0])
+
+    start_time = timeit.default_timer()
+    algorithm(data)
+    end_time = timeit.default_timer()
+
+    return end_time - start_time
 
 
 def doubling_experiment(
@@ -81,10 +86,16 @@ def main() -> None:
     print("Welcome to your Algorithm Analysis Tool!")
     print("")
     # inputs
-    sorting_files = ["bubblesort.py", "mergesort.py", "quicksort.py", "timsort.py", "selectionsort.py"]
+    sorting_files = [
+        "bubblesort.py",
+        "mergesort.py",
+        "quicksort.py",
+        "timsort.py",
+        "selectionsort.py",
+    ]
     directory = input("File to benchmark (e.g. bubblesort.py): ")
     if directory not in sorting_files:
-        print("Error: File not recognized. Please enter a valid file name.")
+        raise ValueError("Error: File not recognized. Please enter a valid file name.")
     data_type = input("Type of data to use (int,str): ")
     while True:
         try:
