@@ -1,4 +1,15 @@
-# Sorty-Sort
+---
+author: [Aidan Dyga, Nicholas Ingerson-Meacham, Ochirsaikhan Davaajambal, Keller Liptrap, Sabrina Rodriguez]
+title: A Comparative Analysis of Sorting Algorithms using Doubling Experiments
+page-layout: full
+categories: [post, containment checking, lists]
+date: "2024-02-16"
+date-format: long
+toc: true
+---
+
+
+# Sorty-Sort Overview
 
 An algorithm analysis tool that utilizes a doubling experiment to predict big O time complexity.
 
@@ -7,7 +18,6 @@ An algorithm analysis tool that utilizes a doubling experiment to predict big O 
 1. source env/bin/activate
 2. python main.py
 
-## Article Here
 
 ### Introduction
 
