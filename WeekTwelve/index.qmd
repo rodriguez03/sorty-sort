@@ -84,11 +84,42 @@ Memory Usage: 14448.00 MB
 
 #### Quicksort
 
+```python
+def quicksort(L):
+    _quicksort(L, 0, len(L))
+```
+
 In this implementation of the algorithm, the `quicksort` function serves as a wrapper function to start the sorting process. It calls the
 `_quicksort` function, passing the list `L`, the leftmost index (`0`), and the rightmost index (`len(L)`).
 
+```python
+def _quicksort(L, left, right):
+    if right - left > 1:
+        mid = partition(L, left, right)
+        _quicksort(L, left, mid)
+        _quicksort(L, mid + 1, right)
+```
+
 The `_quicksort` function performs the recursive sorting process. It checks if the sublist has more than one element and, if so, calls the
 `partition` function to partition the sublist into smaller sublists.
+
+```python
+def partition(L, left, right):
+    pivot = randrange(left, right)
+    L[pivot], L[right - 1] = L[right - 1], L[pivot]
+    i, j, pivot = left, right - 2, right - 1
+    while i < j:
+        while L[i] < L[pivot]:
+            i += 1
+        while i < j and L[j] >= L[pivot]:
+            j -= 1
+        if i < j:
+            L[i], L[j] = L[j], L[i]
+    if L[pivot] <= L[i]:
+        L[pivot], L[i] = L[i], L[pivot]
+        pivot = i
+    return pivot
+```
 
 The `partition` function selects a random pivot element within the sublist and places it at the end. Then, it initializes two pointers, `i`
 and `j`, at the beginning and end of the sublist, respectively. The function then iterates through the sublist, swapping elements to ensure
