@@ -8,7 +8,6 @@ date-format: long
 toc: true
 ---
 
-
 # Sorty-Sort Overview
 
 Sorty-Sort is an algorithm analysis tool designed to provide insights into the time complexity of sorting algorithms. By utilizing a doubling
@@ -24,7 +23,7 @@ presents the experiment results to the user, including the average doubling rati
 
 ### Running the Tool
 
-```python
+```
 Welcome to your Algorithm Analysis Tool!
 
 File to benchmark: timsort.py
@@ -39,9 +38,49 @@ When prompted by the Algorithm Analysis Tool, the user needs to type in the foll
 
 #### Timsort
 
-describe algorithm
+TimSort is a hybrid sorting algorithm, derived from merge sort and insertion sort. It was implemented by a guy named Tim in 2002. The algorithm is pretty complex, and it was designed to perform well on many kinds of real world data. The main idea behind Tim Sort is to exploit the existing order in the data to minimize the number of comparisons and swaps.
 
-provide output
+TimSort has a best case time complexity of O(n), with the same average and worst case time complexity of O(n*log(n)).
+
+**Benchmark results for `timsort` using integers:**
+
+```
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): timsort.py
+Type of data to use (int,str): int
+Start size of list of data: 1000
+
+Run  1 of 5 for timsort.py operation with int list using size  1000 took 0.0024978332 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for timsort.py operation with int list using size  2000 took 0.0050785001 seconds and had a doubling ratio of 2.0331622190
+Run  3 of 5 for timsort.py operation with int list using size  4000 took 0.0091000833 seconds and had a doubling ratio of 1.7918840242
+Run  4 of 5 for timsort.py operation with int list using size  8000 took 0.0141153750 seconds and had a doubling ratio of 1.5511259178
+Run  5 of 5 for timsort.py operation with int list using size 16000 took 0.0221309159 seconds and had a doubling ratio of 1.5678588697
+
+Average Doubling Ratio: 1.7360077576756983
+Predicted Time Complexity: Linearithmic
+Memory Usage: 14480.00 MB
+```
+
+**Benchmark results for `quicksort` using strings:**
+
+```
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): timsort.py
+Type of data to use (int,str): str
+Start size of list of data: 1000
+
+Run  1 of 5 for timsort.py operation with str list using size  1000 took 0.0026867501 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for timsort.py operation with str list using size  2000 took 0.0055249166 seconds and had a doubling ratio of 2.0563566684
+Run  3 of 5 for timsort.py operation with str list using size  4000 took 0.0093449578 seconds and had a doubling ratio of 1.6914206112
+Run  4 of 5 for timsort.py operation with str list using size  8000 took 0.0140130832 seconds and had a doubling ratio of 1.4995341373
+Run  5 of 5 for timsort.py operation with str list using size 16000 took 0.0226977495 seconds and had a doubling ratio of 1.6197541431
+
+Average Doubling Ratio: 1.7167663899740437
+Predicted Time Complexity: Linearithmic
+Memory Usage: 14448.00 MB
+```
 
 #### Quicksort
 
@@ -61,9 +100,6 @@ The quicksort algorithm is not the most efficient sorting algorithm we benchmark
 **Benchmark results for `quicksort` using integers:**
 
 ```
-Original array: [64, 34, 25, 12, 22, 11, 90]
-Sorted array using standard bubble sort: [11, 12, 22, 25, 34, 64, 90]
-
 Welcome to your Algorithm Analysis Tool!
 
 File to benchmark (e.g. bubblesort.py): quicksort.py
@@ -84,9 +120,6 @@ Memory Usage: 11.12 MB
 **Benchmark results for `quicksort` using strings:**
 
 ```
-Original array: [64, 34, 25, 12, 22, 11, 90]
-Sorted array using standard bubble sort: [11, 12, 22, 25, 34, 64, 90]
-
 Welcome to your Algorithm Analysis Tool!
 
 File to benchmark (e.g. bubblesort.py): quicksort.py
@@ -106,9 +139,9 @@ Memory Usage: 12.50 MB
 
 #### Mergesort
 
-describe algorithm
+**Benchmark results for `mergesort` using integers:**
 
-provide output
+**Benchmark results for `mergesort` using strings:**
 
 #### Bubblesort
 
@@ -139,7 +172,7 @@ The bubblesort method consists of two functions `bubblesort(arr)` and `bubble_so
 repeatedly comparing neighboring elements and swapping them if they're out of order, continuing until the array is sorted. Whereas
 `bubble_sort_recursive(arr)` creates a recursive version of bubble sort. It checks elements near each other and swaps them if necessary, then calls itself with the remaining unsorted part of the array until the whole array is sorted. The quadratic time complexity is mainly due to the nested loops in the function. This sorting algorithm iterates through the input array multiple times, comparing elements and swapping them if they are in the wrong order. 
 
-```python 
+```
 Welcome to your Algorithm Analysis Tool!
 
 File to benchmark (e.g. bubblesort.py): bubblesort.py
@@ -202,6 +235,6 @@ selectionsort demonstrate higher time complexity, making them less efficient for
 execution behavior of sorting algorithms is essential for developers to make informed decisions when selecting algorithms for specific use
 cases.
 
-### What we could improve?
+### What Could We Improve?
 
-ideas like ai here
+After reflecting on this algorithm all-hands project, we could definitely make some improvements given more time. Having AI predict the time complexity would be one of the major improvements we would implement. We would also consider displaying a graph of the doubling ratios so that users could better visualize the time complexity. In all, we are very proud of our project but still think that additional modifications can be made.  
