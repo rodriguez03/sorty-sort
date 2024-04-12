@@ -195,7 +195,12 @@ it would take roughly 4 times as long to sort the array.
 
 ### Conclusion
 
-here
+Through the experiments conducted with Sorty-Sort, we observed the time complexity and execution characteristics of different sorting
+algorithms, including TimSort, Quicksort, Mergesort, Bubblesort, and Selectionsort. The analysis revealed that algorithms such as timsort and
+mergesort exhibit superior performance with lower time complexity, particularly for larger datasets, while algorithms like bubblesort and
+selectionsort demonstrate higher time complexity, making them less efficient for larger inputs. Understanding the time complexity and 
+execution behavior of sorting algorithms is essential for developers to make informed decisions when selecting algorithms for specific use
+cases.
 
 ### What we could improve?
 
