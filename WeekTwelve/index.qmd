@@ -105,6 +105,31 @@ describe algorithm
 
 provide output
 
+#### Selectionsort
+
+```python
+def selection_sort(arr):
+   n = len(arr)
+   for i in range(n):
+       min_index = i
+       for j in range(i + 1, n):
+           if arr[j] < arr[min_index]:
+               min_index = j
+       arr[i], arr[min_index] = arr[min_index], arr[i]
+```
+
+Selection sorting is a method of sorting values within an array using two sublists that are unsorted and sorted lists. Initially, the sorted list is empty and the unsorted list is the array the function starts with. Based on the implementation of selection sortit will loop through the starting array or the unsorted list with value take the smallest values or the largest value and place it into the sorted sublist. This loop happens until the unsorted list is empty and the sorted list is complete in descending or ascending order of values.  The worst-case time complexity of selection sorting is O(n^2) due to two nested for loops.
+
+| Array Size | Time Taken (seconds) | Doubling Ratio | 
+|------------|----------------------|----------------|
+| 1000       | 0.028937             | N/A            | 
+| 2000       | 0.113565             | 3.92           | 
+| 4000       | 0.444057             | 3.91           | 
+| 8000       | 1.733939             | 3.90           | 
+| 16000      | 6.894565             | 3.98           | 
+
+Overall selection sort was fastest when the array size was 1000 and the slowest when the array size was 16000. The average time taken for the function to run was 1.84 seconds. The doubling ratio was around 3.9 for each of the array sizes. This means that each time the array doubled it would take roughly 4 times as long to sort the array.
+
 ### Conclusion
 
 here
