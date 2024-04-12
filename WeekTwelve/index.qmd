@@ -139,6 +139,35 @@ Memory Usage: 12.50 MB
 
 #### Mergesort
 
+```python
+def mergesort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+        mergesort(L)
+        mergesort(R)
+        i = j = 0
+        k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+    return arr
+```
+
 **Benchmark results for `mergesort` using integers:**
 
 **Benchmark results for `mergesort` using strings:**
@@ -170,7 +199,7 @@ def bubble_sort_recursive(arr):
 
 The bubblesort method consists of two functions `bubblesort(arr)` and `bubble_sort_recursive(arr)`. `bubblesort(arr)` sorts the input array by
 repeatedly comparing neighboring elements and swapping them if they're out of order, continuing until the array is sorted. Whereas
-`bubble_sort_recursive(arr)` creates a recursive version of bubble sort. It checks elements near each other and swaps them if necessary, then calls itself with the remaining unsorted part of the array until the whole array is sorted. The quadratic time complexity is mainly due to the nested loops in the function. This sorting algorithm iterates through the input array multiple times, comparing elements and swapping them if they are in the wrong order. 
+`bubble_sort_recursive(arr)` creates a recursive version of bubble sort. It checks elements near each other and swaps them if necessary, then calls itself with the remaining unsorted part of the array until the whole array is sorted. The quadratic time complexity is mainly due to the nested loops in the function. This sorting algorithm iterates through the input array multiple times, comparing elements and swapping them if they are in the wrong order.
 
 ```
 Welcome to your Algorithm Analysis Tool!
@@ -193,7 +222,7 @@ Memory Usage: 9828.00 MB
 The average doubling ratio suggests the algorithm's time complexity, which in this case indicates a quadratic relationship between the input
 size and the time taken. Additionally, memory usage is reported as 9828.00 MB. In the doubling experiment, as the size of the input list
 doubles, the execution time quadruples. This is consistent with quadratic time complexity, as the average doubling ratio of approximately 2.
-56. 
+56.
 
 #### Selectionsort
 
@@ -214,13 +243,13 @@ the starting array or the unsorted list with value take the smallest values or t
 loop happens until the unsorted list is empty and the sorted list is complete in descending or ascending order of values.  The worst-case time
 complexity of selection sorting is O(n^2) due to two nested for loops.
 
-| Array Size | Time Taken (seconds) | Doubling Ratio | 
+| Array Size | Time Taken (seconds) | Doubling Ratio |
 |------------|----------------------|----------------|
-| 1000       | 0.028937             | N/A            | 
-| 2000       | 0.113565             | 3.92           | 
-| 4000       | 0.444057             | 3.91           | 
-| 8000       | 1.733939             | 3.90           | 
-| 16000      | 6.894565             | 3.98           | 
+| 1000       | 0.028937             | N/A            |
+| 2000       | 0.113565             | 3.92           |
+| 4000       | 0.444057             | 3.91           |
+| 8000       | 1.733939             | 3.90           |
+| 16000      | 6.894565             | 3.98           |
 
 Overall selection sort was fastest when the array size was 1000 and the slowest when the array size was 16000. The average time taken for the
 function to run was 1.84 seconds. The doubling ratio was around 3.9 for each of the array sizes. This means that each time the array doubled
@@ -231,10 +260,10 @@ it would take roughly 4 times as long to sort the array.
 Through the experiments conducted with Sorty-Sort, we observed the time complexity and execution characteristics of different sorting
 algorithms, including TimSort, Quicksort, Mergesort, Bubblesort, and Selectionsort. The analysis revealed that algorithms such as timsort and
 mergesort exhibit superior performance with lower time complexity, particularly for larger datasets, while algorithms like bubblesort and
-selectionsort demonstrate higher time complexity, making them less efficient for larger inputs. Understanding the time complexity and 
+selectionsort demonstrate higher time complexity, making them less efficient for larger inputs. Understanding the time complexity and
 execution behavior of sorting algorithms is essential for developers to make informed decisions when selecting algorithms for specific use
 cases.
 
 ### What Could We Improve?
 
-After reflecting on this algorithm all-hands project, we could definitely make some improvements given more time. Having AI predict the time complexity would be one of the major improvements we would implement. We would also consider displaying a graph of the doubling ratios so that users could better visualize the time complexity. In all, we are very proud of our project but still think that additional modifications can be made.  
+After reflecting on this algorithm all-hands project, we could definitely make some improvements given more time. Having AI predict the time complexity would be one of the major improvements we would implement. We would also consider displaying a graph of the doubling ratios so that users could better visualize the time complexity. In all, we are very proud of our project but still think that additional modifications can be made.
