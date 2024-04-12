@@ -199,9 +199,47 @@ def mergesort(arr):
     return arr
 ```
 
+The `mergesort` algorithm begins by recursively dividing the input array into smaller sublists until each subarray contains only one element.Then it merges those sublists in a sorted fashion. During the merging phase, it compares elements from the left and right sublists and selects the smaller one to place in the original list. This continues until all of the elements are merged back into a single sorted list.
+
 **Benchmark results for `mergesort` using integers:**
 
+```
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): mergesort.py
+Type of data to use (int,str): int
+Start size of list of data: 1000
+
+Run  1 of 5 for mergesort.py operation with int list using size  1000 took 0.0035547890 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for mergesort.py operation with int list using size  2000 took 0.0020220050 seconds and had a doubling ratio of 0.5688115402
+Run  3 of 5 for mergesort.py operation with int list using size  4000 took 0.0089361320 seconds and had a doubling ratio of 4.4194410846
+Run  4 of 5 for mergesort.py operation with int list using size  8000 took 0.0103008370 seconds and had a doubling ratio of 1.1527176420
+Run  5 of 5 for mergesort.py operation with int list using size 16000 took 0.0240795890 seconds and had a doubling ratio of 2.3376342121
+
+Average Doubling Ratio: 2.11965111973673
+Predicted Time Complexity: Quadratic
+Memory Usage: 11.48 MB
+```
+
 **Benchmark results for `mergesort` using strings:**
+
+```
+Welcome to your Algorithm Analysis Tool!
+
+File to benchmark (e.g. bubblesort.py): mergesort.py
+Type of data to use (int,str): str
+Start size of list of data: 1000
+
+Run  1 of 5 for mergesort.py operation with str list using size  1000 took 0.0021601550 seconds and had a doubling ratio of          N/A
+Run  2 of 5 for mergesort.py operation with str list using size  2000 took 0.0062551580 seconds and had a doubling ratio of 2.8956986696
+Run  3 of 5 for mergesort.py operation with str list using size  4000 took 0.0051163940 seconds and had a doubling ratio of 0.8179480064
+Run  4 of 5 for mergesort.py operation with str list using size  8000 took 0.0111320360 seconds and had a doubling ratio of 2.1757581578
+Run  5 of 5 for mergesort.py operation with str list using size 16000 took 0.0245147910 seconds and had a doubling ratio of 2.2021839491
+
+Average Doubling Ratio: 2.0228971957151374
+Predicted Time Complexity: Quadratic
+Memory Usage: 12.62 MB
+```
 
 #### Bubblesort
 
