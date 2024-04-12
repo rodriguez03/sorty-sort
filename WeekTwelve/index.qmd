@@ -38,7 +38,7 @@ When prompted by the Algorithm Analysis Tool, the user needs to type in the foll
 
 #### Timsort
 
-TimSort is a hybrid sorting algorithm, derived from merge sort and insertion sort. It was implemented by a guy named Tim in 2002. The algorithm is pretty complex, and it was designed to perform well on many kinds of real world data. The main idea behind Tim Sort is to exploit the existing order in the data to minimize the number of comparisons and swaps.
+TimSort is a hybrid sorting algorithm, derived from merge sort and insertion sort. It was implemented by a guy named Tim in 2002. The algorithm is pretty complex, and it was designed to perform well on many kinds of real world data. The main idea behind TimSort is to exploit the existing order in the data to minimize the number of comparisons and swaps.
 
 TimSort has a best case time complexity of O(n), with the same average and worst case time complexity of O(n*log(n)).
 
@@ -62,7 +62,7 @@ Predicted Time Complexity: Linearithmic
 Memory Usage: 14480.00 MB
 ```
 
-**Benchmark results for `quicksort` using strings:**
+**Benchmark results for `timsort` using strings:**
 
 ```
 Welcome to your Algorithm Analysis Tool!
